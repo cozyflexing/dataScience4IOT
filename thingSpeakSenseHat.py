@@ -17,8 +17,8 @@ green = (0, 128, 0)
 orange = (255, 100, 0)
 white = (255, 255, 255)
 
-writeAPIkey = "PKIFYXGD5ECKT45H" # Vul hier je eigen writeAPIkey in. 
-channelID = "2008852" # Vul hier je eigen channelID in.
+writeAPIkey = "" # Vul hier je eigen writeAPIkey in. 
+channelID = "" # Vul hier je eigen channelID in.
 
 
 url= "https://api.thingspeak.com/update"
