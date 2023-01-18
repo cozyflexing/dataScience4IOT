@@ -1,0 +1,9 @@
+Dit is mijn IoT project voor het keuzevak. 
+Ik heb ervoor gekozen om een klein weerstation te bouwen in mijn kamer, dit weerstation houdt de temperatuur, luchtdruk en luchtvochtigheid bij in mijn kamer.
+
+De data wordt op twee manieren gepresenteerd aan de gebruiker:
+1. Via de thingspeak link (https://thingspeak.com/channels/2008852) is er een dashboard zichtbaar die alle drie fields bijhoudt.
+2. Ik heb op de raspberry pi een Sense-Hat gemonteerd, dit heeft een 8x8 led matrix. De matrix laat de temperatuur in de kamer zien met daarbij de passsende achtergrondkleur voor de huidige temperatuur, zie video (https://www.youtube.com/shorts/C5mS04tNjGo).
+
+Ik heb ook nog een derde feedback source proberen te maken en dat is via Twitter (https://twitter.com/16_analytics), 
+hier wordt een Tweet gepost wanneer bepaalde temperatuur omstandigheden bereikt worden. De inhoud van de Tweets zijn een voorbeeld en kunnen aangepast worden. Ik heb deze functionaliteit verkregen door gebruik te maken van de react app binnen Thingspeak.
