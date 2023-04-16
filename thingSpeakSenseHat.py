@@ -33,6 +33,8 @@ def get_humidity():
 
 def show_message(message, text_colour, background_colour):
     sense.show_message(message, text_colour=text_colour, back_colour=background_colour, scroll_speed=0.15)
+    sleep(5)
+    sense.clear()
 
 app.layout = dbc.Container([
     html.H1("SenseHat Weather Monitor", style={"text-align": "center"}),
