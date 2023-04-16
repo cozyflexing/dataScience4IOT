@@ -20,7 +20,7 @@ def interpolate_color(minval, maxval, val, color_palette):
     return int(r1 + f * (r2 - r1)), int(g1 + f * (g2 - g1)), int(b1 + f * (b2 - b1))
 
 def get_temperature():
-    temperature = sense.get_temperature_from_pressure() - 7.3
+    temperature = sense.get_temperature() - 7.3
     return temperature
 
 def get_pressure():
