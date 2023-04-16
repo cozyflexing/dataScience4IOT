@@ -65,7 +65,17 @@ app.layout = dbc.Container([
             dcc.Graph(id="humidity-graph")
         ])
     ]),
-    dbc.Button("Show on LED Matrix", id="show-button", color="primary", className="mr-1"),
+    dbc.Row([
+        dbc.Col([
+            dbc.Button("Show Temperature on LED Matrix", id="show-temperature-button", color="primary", className="mr-1", style={"margin": "auto"}),
+        ], style={"text-align": "center"}),
+        dbc.Col([
+            dbc.Button("Show Pressure on LED Matrix", id="show-pressure-button", color="primary", className="mr-1", style={"margin": "auto"}),
+        ], style={"text-align": "center"}),
+        dbc.Col([
+            dbc.Button("Show Humidity on LED Matrix", id="show-humidity-button", color="primary", className="mr-1", style={"margin": "auto"}),
+        ], style={"text-align": "center"}),
+    ]),
     dcc.Interval(id="interval", interval=1*1000, n_intervals=0)
 ])
 
@@ -117,6 +127,28 @@ def display_on_led_matrix(n_clicks):
         color_palette = [(0, 0, 255), (0, 255, 0), (255, 0, 0)]
         background_color = interpolate_color(0, 30, temp, color_palette)
         show_message(message, (255, 255, 255), background_color)
+    return n_clicks
+
+@app.callback(
+    Output("show-pressure-button", "n_clicks"),
+    Input("show-pressure-button", "n_clicks")
+)
+def display_pressure_on_led_matrix(n_clicks):
+    if n_clicks is not None and n_clicks > 0:
+        pressure = round(get_pressure(), 2)
+        message = f"{pressure} hPa"
+        show_message(message, (255, 255, 255), (0, 128, 0))
+    return n_clicks
+
+@app.callback(
+    Output("show-humidity-button", "n_clicks"),
+    Input("show-humidity-button", "n_clicks")
+)
+def display_humidity_on_led_matrix(n_clicks):
+    if n_clicks is not None and n_clicks > 0:
+        humidity = round(get_humidity(), 2)
+        message = f"{humidity} %"
+        show_message(message, (255, 255, 255), (0, 128, 0))
     return n_clicks
 
 
