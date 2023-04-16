@@ -117,8 +117,8 @@ def update_values(n):
     return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure
 
 @app.callback(
-    Output("show-button", "n_clicks"),
-    Input("show-button", "n_clicks")
+    Output("show-temperature-button", "n_clicks"),
+    Input("show-temperature-button", "n_clicks")
 )
 def display_on_led_matrix(n_clicks):
     if n_clicks is not None and n_clicks > 0:
