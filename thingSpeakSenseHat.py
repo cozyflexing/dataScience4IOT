@@ -137,7 +137,10 @@ def display_pressure_on_led_matrix(n_clicks):
     if n_clicks is not None and n_clicks > 0:
         pressure = round(get_pressure(), 2)
         message = f"{pressure} hPa"
-        show_message(message, (255, 255, 255), (0, 128, 0))
+        color_palette = [(0, 0, 255), (255, 0, 0)]
+        min_pressure, max_pressure = 950, 1050
+        background_color = interpolate_color(min_pressure, max_pressure, pressure, color_palette)
+        show_message(message, (255, 255, 255), background_color)
     return n_clicks
 
 @app.callback(
@@ -148,8 +151,12 @@ def display_humidity_on_led_matrix(n_clicks):
     if n_clicks is not None and n_clicks > 0:
         humidity = round(get_humidity(), 2)
         message = f"{humidity} %"
-        show_message(message, (255, 255, 255), (0, 128, 0))
+        color_palette = [(255, 255, 0), (0, 255, 0)]
+        min_humidity, max_humidity = 0, 100
+        background_color = interpolate_color(min_humidity, max_humidity, humidity, color_palette)
+        show_message(message, (255, 255, 255), background_color)
     return n_clicks
+
 
 
 if __name__ == "__main__":
