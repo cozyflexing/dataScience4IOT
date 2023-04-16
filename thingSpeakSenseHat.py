@@ -89,32 +89,40 @@ app.layout = dbc.Container([
     Input("interval", "n_intervals")
 )
 def update_values(n):
-    temperature = f"{round(get_temperature(), 2)} °C"
-    pressure = f"{round(get_pressure(), 2)} hPa"
-    humidity = f"{round(get_humidity(), 2)} %"
+    temperature_value = get_temperature()
+    pressure_value = get_pressure()
+    humidity_value = get_humidity()
     
+    temperature_color = interpolate_color(0, 30, temperature_value, [(0, 0, 255), (0, 255, 0), (255, 0, 0)])
+    pressure_color = interpolate_color(950, 1050, pressure_value, [(0, 0, 255), (255, 0, 0)])
+    humidity_color = interpolate_color(0, 100, humidity_value, [(255, 255, 0), (0, 255, 0)])
+
     temperature_figure = go.Figure(go.Indicator(
         mode="gauge+number",
-        value=get_temperature(),
+        value=temperature_value,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Temperature"}
+        title={'text': "Temperature"},
+        gauge={'bar': {'color': f'rgb{temperature_color}'}}
     ))
 
     pressure_figure = go.Figure(go.Indicator(
         mode="gauge+number",
-        value=get_pressure(),
+        value=pressure_value,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Pressure"}
+        title={'text': "Pressure"},
+        gauge={'bar': {'color': f'rgb{pressure_color}'}}
     ))
 
     humidity_figure = go.Figure(go.Indicator(
         mode="gauge+number",
-        value=get_humidity(),
+        value=humidity_value,
         domain={'x': [0, 1], 'y': [0, 1]},
-        title={'text': "Humidity"}
+        title={'text': "Humidity"},
+        gauge={'bar': {'color': f'rgb{humidity_color}'}}
     ))
     
     return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure
+
 
 @app.callback(
     Output("show-temperature-button", "n_clicks"),
