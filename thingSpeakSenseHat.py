@@ -204,7 +204,7 @@ def update_values(n):
 )
 def display_on_led_matrix(n_clicks):
     if n_clicks is not None and n_clicks > 0:
-                temp = round(get_temperature(), 2)
+        temp = round(get_temperature(), 2)
         message = f"{temp} C"
         if temp >= 20:
             show_message(message, (255, 255, 255), (0, 128, 0))
