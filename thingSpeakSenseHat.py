@@ -11,6 +11,14 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 sense = SenseHat()
 
+def interpolate_color(minval, maxval, val, color_palette):
+    max_index = len(color_palette) - 1
+    v = float(val - minval) / float(maxval - minval) * max_index
+    i1, i2 = int(v), min(int(v) + 1, max_index)
+    (r1, g1, b1), (r2, g2, b2) = color_palette[i1], color_palette[i2]
+    f = v - i1
+    return int(r1 + f * (r2 - r1)), int(g1 + f * (g2 - g1)), int(b1 + f * (b2 - b1))
+
 def get_temperature():
     temperature = sense.get_temperature_from_pressure() - 7.3
     return temperature
@@ -103,13 +111,11 @@ def display_on_led_matrix(n_clicks):
     if n_clicks is not None and n_clicks > 0:
         temp = round(get_temperature(), 2)
         message = f"{temp} C"
-        if temp >= 20:
-            show_message(message, (255, 255, 255), (0, 128, 0))
-        elif 18 <= temp < 20:
-            show_message(message, (255, 255, 255), (255, 100, 0))
-        else:
-            show_message(message, (255, 255, 255), (255, 0, 0))
+        color_palette = [(0, 0, 255), (0, 255, 0), (255, 0, 0)]
+        background_color = interpolate_color(0, 30, temp, color_palette)
+        show_message(message, (255, 255, 255), background_color)
     return n_clicks
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
