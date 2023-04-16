@@ -26,6 +26,13 @@ def get_humidity():
 def show_message(message, text_colour, background_colour):
     sense.show_message(message, text_colour=text_colour, back_colour=background_colour, scroll_speed=0.15)
 
+def interpolate_color(temp, temp_min=0, temp_max=30, color_min=(0, 0, 255), color_max=(255, 0, 0)):
+    ratio = (temp - temp_min) / (temp_max - temp_min)
+    r = int(color_min[0] + (color_max[0] - color_min[0]) * ratio)
+    g = int(color_min[1] + (color_max[1] - color_min[1]) * ratio)
+    b = int(color_min[2] + (color_max[2] - color_min[2]) * ratio)
+    return r, g, b
+    
 app.layout = dbc.Container([
     html.H1("SenseHat Weather Monitor", style={"text-align": "center"}),
     html.Br(),
@@ -95,21 +102,15 @@ def update_values(n):
     
     return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure
 
-@app.callback(
-    Output("show-button", "n_clicks"),
-    Input("show-button", "n_clicks")
-)
+@app.callback(Output("output", "children"), [Input("button", "n_clicks")])
 def display_on_led_matrix(n_clicks):
-    if n_clicks is not None and n_clicks > 0:
+    if n_clicks is not None:
         temp = round(get_temperature(), 2)
         message = f"{temp} C"
-        if temp >= 20:
-            show_message(message, (255, 255, 255), (0, 128, 0))
-        elif 18 <= temp < 20:
-            show_message(message, (255, 255, 255), (255, 100, 0))
-        else:
-            show_message(message, (255, 255, 255), (255, 0, 0))
+        color = interpolate_color(temp)
+        show_message(message, (255, 255, 255), color)
     return n_clicks
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
