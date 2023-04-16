@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output
 from sense_hat import SenseHat
 import requests
 import plotly.graph_objs as go
+from time import sleep
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
