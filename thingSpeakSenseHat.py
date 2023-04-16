@@ -121,7 +121,8 @@ def update_values(n):
         gauge={'bar': {'color': f'rgb{humidity_color}'}}
     ))
     
-    return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure
+    return temperature_value, pressure_value, humidity_value, temperature_figure, pressure_figure, humidity_figure
+
 
 
 @app.callback(
