@@ -25,7 +25,7 @@ def flash_led_matrix_red():
     sense.clear()
 
 
-uri = "mongodb+srv://alen:DMnojj6eEjtZTGZUnKos2GgCDV9ZQbZm@testcluster.qonjj4v.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi("1"), tlsCAFile=certifi.where())
