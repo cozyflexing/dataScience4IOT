@@ -97,6 +97,15 @@ def update_values(n):
         value=temperature_value,
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Temperature"},
+        gauge={
+            'axis': {'range': [None, 100]},
+            'bar': {'color': 'rgba(0, 0, 0, 0.5)'},
+            'steps': [
+                {'range': [0, 60], 'color': 'lightgreen'},
+                {'range': [60, 80], 'color': 'yellow'},
+                {'range': [80, 100], 'color': 'red'}
+            ],
+        }
     ))
 
     pressure_figure = go.Figure(go.Indicator(
@@ -104,6 +113,15 @@ def update_values(n):
         value=pressure_value,
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Pressure"},
+        gauge={
+            'axis': {'range': [None, 1200]},
+            'bar': {'color': 'rgba(0, 0, 0, 0.5)'},
+            'steps': [
+                {'range': [0, 1000], 'color': 'lightgreen'},
+                {'range': [1000, 1100], 'color': 'yellow'},
+                {'range': [1100, 1200], 'color': 'red'}
+            ],
+        }
     ))
 
     humidity_figure = go.Figure(go.Indicator(
@@ -111,6 +129,15 @@ def update_values(n):
         value=humidity_value,
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Humidity"},
+        gauge={
+            'axis': {'range': [None, 100]},
+            'bar': {'color': 'rgba(0, 0, 0, 0.5)'},
+            'steps': [
+                {'range': [0, 40], 'color': 'red'},
+                {'range': [40, 60], 'color': 'yellow'},
+                {'range': [60, 100], 'color': 'lightgreen'}
+            ],
+        }
     ))
 
     # Separate figures for each parameter
