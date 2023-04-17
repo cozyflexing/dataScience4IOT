@@ -1,9 +1,34 @@
-Dit is mijn IoT project voor het keuzevak. 
-Ik heb ervoor gekozen om een klein weerstation te bouwen in mijn kamer, dit weerstation houdt de temperatuur, luchtdruk en luchtvochtigheid bij in mijn kamer.
+sensehat-weather-monitor
+Introduction
+This project demonstrates a weather monitor using the SenseHAT add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
 
-De data wordt op twee manieren gepresenteerd aan de gebruiker:
-1. Via de thingspeak link (https://thingspeak.com/channels/2008852) is er een dashboard zichtbaar die alle drie fields bijhoudt.
-2. Ik heb op de raspberry pi een Sense-Hat gemonteerd, dit heeft een 8x8 led matrix. De matrix laat de temperatuur in de kamer zien met daarbij de passsende achtergrondkleur voor de huidige temperatuur, zie video (https://www.youtube.com/shorts/C5mS04tNjGo).
+SenseHAT Weather Monitor
 
-Ik heb ook nog een derde feedback source proberen te maken en dat is via Twitter (https://twitter.com/16_analytics), 
-hier wordt een Tweet gepost wanneer bepaalde temperatuur omstandigheden bereikt worden. De inhoud van de Tweets zijn een voorbeeld en kunnen aangepast worden. Ik heb deze functionaliteit verkregen door gebruik te maken van de react app binnen Thingspeak.
+Architecture
+SenseHAT Weather Monitor Architecture
+
+Sensor Data Collection
+The sensor_handler.py script periodically collects data from the SenseHAT board and stores it in a MongoDB database. The data collected includes temperature, pressure, and humidity.
+
+Database
+A MongoDB database is used to store the sensor data. The sensor data is stored in a collection named weather.
+
+Web Application
+The web application is built using the Dash framework, which is a Python library for creating analytical web applications. The application consists of the following components:
+
+Temperature, pressure, and humidity gauges
+4-hour historical line charts for each parameter
+The web application updates the displayed data every 30 seconds.
+
+Dash Application Layout
+The Dash application layout consists of a Bootstrap container with three main sections:
+
+Header with the title "SenseHat Weather Monitor"
+Row with three columns for displaying the current temperature, pressure, and humidity
+Two rows, each containing three columns with graphs for displaying the historical data
+Updating the Data
+The update_values function is triggered by the interval component every 30 seconds. This function fetches the latest data from the MongoDB database and updates the gauges and historical line charts in the web application.
+
+Running the Application
+To run the application, execute the app.py script.
+'''python app.py'''
