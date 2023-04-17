@@ -12,6 +12,8 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ![Sense-Hat Weather Monitor Combined 4](https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined4.JPG)
 
+The Sense-Hat is put directly on top of the Raspberry Pi 4 and is held in place with 4 scews at each corner.
+
 ## IoT Pipeline
 
 ![Data Pipeline](https://github.com/cozyflexing/dataScience4IOT/blob/d819b91ca998dedd4bbcfb8e8a57db1b7d942161/Pipeline.jpeg)
