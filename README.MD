@@ -46,6 +46,38 @@ The Dash application layout consists of a Bootstrap container with three main se
 ### Updating the Data
 
 The `update_values` function is triggered by the interval component every 30 seconds. This function fetches the latest data from the MongoDB database and updates the gauges and historical line charts in the web application.
+### Requirements
+- Python 3.7 or higher
+- Dash
+- Dash Bootstrap Components
+- Dash Core Components
+- Dash HTML Components
+- Plotly
+- PyMongo
+- Certifi
+- Sense-HAT library
+
+### Installation
+1. Set up a Raspberry Pi with the Sense-HAT add-on board.
+2. Install the required Python packages:
+```bash
+pip install dash dash_bootstrap_components dash_core_components dash_html_components plotly pymongo certifi sense-hat
+```
+3. Clone the repository:
+```bash
+git clone https://github.com/username/sensehat-weather-monitor.git
+```
+4. Replace your_mongodb_uri in sensor_handler.py with your actual MongoDB URI.
+5. Run the sensor_handler.py script to start collecting data.
+6. Run the app.py script to start the Dash web application.
+
+### Features
+1. Real-time monitoring of temperature, pressure, and humidity
+2. 4-hour historical data visualization for temperature, pressure, and humidity
+3. Gauge charts for each weather parameter
+4. Line charts for historical data
+5. Automatic red LED flashing on the Sense-HAT when high temperature is detected
+6. Mobile and desktop friendly web application
 
 ### Running the Application
 
@@ -69,24 +101,17 @@ python sensor_handler.py
 
 The script will collect and store sensor data every 30 seconds.
 
-### Setup
+### Usage
+1. Open the web application in a browser, either on the Raspberry Pi itself or on another device within the same network by using the Raspberry Pi's IP address.
+2. Monitor the real-time temperature, pressure, and humidity data displayed on the gauges.
+3. Observe the historical data in the line charts below the gauges, which displays the last 4 hours of sensor data.
 
-1. Set up a Raspberry Pi with the SenseHAT add-on board.
-2. Install the required Python packages:
+### Customization
+You can customize the application by modifying the following parameters:
 
-```bash
-pip install dash dash-bootstrap-components pymongo sense-hat plotly
-```
-
-3. Clone the repository:
-
-```bash
-git clone https://github.com/username/sensehat-weather-monitor.git
-```
-
-4. Replace your_mongodb_uri in sensor_handler.py with your actual MongoDB URI.
-5. Run the sensor_handler.py script to start collecting data.
-6. Run the app.py script to start the Dash web application.
+- Data collection interval: Adjust the interval between sensor readings by changing the sleep duration in the sensor_handler.py script.
+- Web application update interval: Modify the update interval in the app.py script by changing the value of the interval component.
+- Chart time range: Change the duration of the historical data displayed in the line charts by adjusting the time range in the app.py script.
 
 ### Resources
 
