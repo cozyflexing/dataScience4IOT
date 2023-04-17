@@ -12,7 +12,7 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ### IoT Pipeline
 
-![Data Pipeline]()
+![Data Pipeline](https://github.com/cozyflexing/dataScience4IOT/blob/d819b91ca998dedd4bbcfb8e8a57db1b7d942161/Pipeline.jpeg)
 
 ### Sensor Data Collection
 
