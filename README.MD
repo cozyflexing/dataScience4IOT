@@ -1,16 +1,16 @@
-# sensehat-weather-monitor
+# sensehat-monitor
 
 ## Introduction
 
-This project demonstrates a weather monitor using the Sense-Hat add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
+This project demonstrates a monitor using the Sense-Hat add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
 
-![Sense-Hat Weather Monitor Dashboard](https://github.com/cozyflexing/dataScience4IOT/blob/33a5886199d38828c2789780666378c04d29d8b9/Dashboard%20Part%201.png)
+![Sense-Hat Monitor Dashboard](https://github.com/cozyflexing/dataScience4IOT/blob/33a5886199d38828c2789780666378c04d29d8b9/Dashboard%20Part%201.png)
 
 ## Parts
 
-![Sense-Hat Weather Monitor Separate](https://github.com/cozyflexing/dataScience4IOT/blob/9587aad39beb7e2d4f7242eac818a00f9f5c5997/separateParts.JPG)
+![Sense-Hat Monitor Separate](https://github.com/cozyflexing/dataScience4IOT/blob/9587aad39beb7e2d4f7242eac818a00f9f5c5997/separateParts.JPG)
 
-![Sense-Hat Weather Monitor Combined 4](https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined4.JPG)
+![Sense-Hat Monitor Combined 4](https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined4.JPG)
 
 The Sense-Hat is put directly on top of the Raspberry Pi 4 and is held in place with 4 scews at each corner.
 
@@ -39,7 +39,7 @@ The web application updates the displayed data every 30 seconds.
 
 The Dash application layout consists of a Bootstrap container with three main sections:
 
-1. Header with the title "SenseHat Weather Monitor"
+1. Header with the title "SenseHat Monitor"
 2. Row with three columns for displaying the current temperature, pressure, and humidity
 3. Two rows, each containing three columns with graphs for displaying the historical data
 
