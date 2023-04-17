@@ -7,10 +7,14 @@ from sense_hat import SenseHat
 import requests
 import plotly.graph_objs as go
 from time import sleep
+from pymongo import MongoClient
+from datetime import datetime
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
 sense = SenseHat()
+client = MongoClient('your_mongodb_uri')
+db = client['weather_data']
+weather_collection = db['weather']
 
 def interpolate_color(minval, maxval, val, color_palette):
     max_index = len(color_palette) - 1
@@ -19,6 +23,15 @@ def interpolate_color(minval, maxval, val, color_palette):
     (r1, g1, b1), (r2, g2, b2) = color_palette[i1], color_palette[i2]
     f = v - i1
     return int(r1 + f * (r2 - r1)), int(g1 + f * (g2 - g1)), int(b1 + f * (b2 - b1))
+
+def save_data_to_mongodb(temperature, pressure, humidity):
+    data = {
+        'temperature': temperature,
+        'pressure': pressure,
+        'humidity': humidity,
+        'timestamp': datetime.utcnow()
+    }
+    weather_collection.insert_one(data)
 
 def get_temperature():
     temperature = sense.get_temperature() - 7.3
@@ -120,7 +133,7 @@ def update_values(n):
         title={'text': "Humidity"},
         gauge={'bar': {'color': f'rgb{humidity_color}'}}
     ))
-    
+    save_data_to_mongodb(temperature_value, pressure_value, humidity_value)
     return temperature_value, pressure_value, humidity_value, temperature_figure, pressure_figure, humidity_figure
 
 
