@@ -100,9 +100,6 @@ def create_gauge_chart(title, value, min_value, max_value, threshold1, threshold
         gauge={
             "axis": {
                 "range": [min_value, max_value],
-                "tickcolor": "lightgrey",
-                "linecolor": "lightgrey",
-                "linewidth": 2,
             },
             "bar": {"color": "darkblue"},
             "steps": [
@@ -119,6 +116,7 @@ def create_gauge_chart(title, value, min_value, max_value, threshold1, threshold
             "bordercolor": "rgba(0,0,0,0)",
         },
     )
+
 
 
 # Callback function to update the values and graphs
