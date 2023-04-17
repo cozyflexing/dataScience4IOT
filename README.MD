@@ -75,7 +75,7 @@ The script will collect and store sensor data every 30 seconds.
 2. Install the required Python packages:
 
 ```bash
-pip install dash dash-bootstrap-components pymongo sense-hat
+pip install dash dash-bootstrap-components pymongo sense-hat plotly
 ```
 
 3. Clone the repository:
