@@ -5,7 +5,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 from pymongo import MongoClient
-from datetime import datetime
+import datetime
 import plotly.graph_objs as go
 from db import client
 
@@ -43,7 +43,13 @@ app.layout = dbc.Container([
     ]),
     dbc.Row([
         dbc.Col([
-            dcc.Graph(id="combined-graph")
+            dcc.Graph(id="temperature-4h-graph")
+        ]),
+        dbc.Col([
+            dcc.Graph(id="pressure-4h-graph")
+        ]),
+        dbc.Col([
+            dcc.Graph(id="humidity-4h-graph")
         ])
     ]),
     dcc.Interval(id="interval", interval=1*30000, n_intervals=0)
@@ -56,10 +62,11 @@ app.layout = dbc.Container([
     Output("temperature-graph", "figure"),
     Output("pressure-graph", "figure"),
     Output("humidity-graph", "figure"),
-    Output("combined-graph", "figure"),
+    Output("temperature-4h-graph", "figure"),
+    Output("pressure-4h-graph", "figure"),
+    Output("humidity-4h-graph", "figure"),
     Input("interval", "n_intervals")
 )
-import datetime
 
 def update_values(n):
     latest_data = weather_collection.find_one(sort=[("timestamp", -1)])
@@ -71,9 +78,9 @@ def update_values(n):
     else:
         temperature_value, pressure_value, humidity_value = None, None, None
 
-    # Fetch the last 24 hours data
+    # Fetch the last 4 hours data
     now = datetime.datetime.now()
-    start_time = now - datetime.timedelta(hours=24)
+    start_time = now - datetime.timedelta(hours=4)
     query = {"timestamp": {"$gte": start_time}}
     historical_data = weather_collection.find(query).sort("timestamp", 1)
 
@@ -106,26 +113,43 @@ def update_values(n):
         title={'text': "Humidity"},
     ))
 
-    combined_figure = go.Figure()
+    # Separate figures for each parameter
+    temperature_history_figure = go.Figure()
+    pressure_history_figure = go.Figure()
+    humidity_history_figure = go.Figure()
 
-    combined_figure.add_trace(go.Scatter(
+    temperature_history_figure.add_trace(go.Scatter(
         x=timestamps, y=temperatures, mode="lines", name="Temperature"
     ))
-    combined_figure.add_trace(go.Scatter(
+    pressure_history_figure.add_trace(go.Scatter(
         x=timestamps, y=pressures, mode="lines", name="Pressure"
     ))
-    combined_figure.add_trace(go.Scatter(
+    humidity_history_figure.add_trace(go.Scatter(
         x=timestamps, y=humidities, mode="lines", name="Humidity"
     ))
 
-    combined_figure.update_layout(
-        title="24 Hours Weather Data",
+    temperature_history_figure.update_layout(
+        title="4 Hours Temperature Data",
         xaxis_title="Time",
-        yaxis_title="Values",
-        legend_title="Parameters"
+        yaxis_title="Temperature"
     )
 
-    return temperature_value, pressure_value, humidity_value, temperature_figure, pressure_figure, humidity_figure, combined_figure
+    pressure_history_figure.update_layout(
+        title="4 Hours Pressure Data",
+        xaxis_title="Time",
+        yaxis_title="Pressure"
+    )
+
+    humidity_history_figure.update_layout(
+        title="4 Hours Humidity Data",
+        xaxis_title="Time",
+        yaxis_title="Humidity"
+    )
+
+    return (temperature_value, pressure_value, humidity_value,
+            temperature_figure, pressure_figure, humidity_figure,
+            temperature_history_figure, pressure_history_figure, humidity_history_figure)
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
