@@ -167,6 +167,5 @@ def display_humidity_on_led_matrix(n_clicks):
     return n_clicks
 
 
-qcRCg@3rqV7NAG%Xw2AVx&tC*#PFAgFC
 if __name__ == "__main__":
     app.run_server(debug=True)
