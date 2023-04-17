@@ -113,6 +113,13 @@ You can customize the application by modifying the following parameters:
 - Web application update interval: Modify the update interval in the app.py script by changing the value of the interval component.
 - Chart time range: Change the duration of the historical data displayed in the line charts by adjusting the time range in the app.py script.
 
+### Demo Video
+A demo video is available to showcase the Sense-Hat Monitor project in action, including the LED matrix blinking when certain conditions are met. You can view the video by following the link below:
+
+[Watch the Sense-Hat Monitor Demo Video](https://youtube.com/shorts/G0rnkTYlIbE?feature=share)
+
+In the video, you will see the LED matrix on the Sense-Hat board flashing red when the temperature, pressure, or humidity values exceed predefined thresholds. This feature provides a visual alert in addition to the data displayed on the web application.
+
 ### Resources
 
 - [SenseHAT Documentation](https://pythonhosted.org/sense-hat/api/)
