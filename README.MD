@@ -6,11 +6,11 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ![SenseHAT Weather Monitor Dashboard](https://github.com/cozyflexing/dataScience4IOT/blob/33a5886199d38828c2789780666378c04d29d8b9/Dashboard%20Part%201.png)
 
-## Architecture
+## Parts
 
-![SenseHAT Weather Monitor Architecture](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-architecture.png)
+![Sense-Hat Weather Monitor Parts](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-architecture.png)
 
-### IoT Pipeline
+## IoT Pipeline
 
 ![Data Pipeline](https://github.com/cozyflexing/dataScience4IOT/blob/d819b91ca998dedd4bbcfb8e8a57db1b7d942161/Pipeline.jpeg)
 
