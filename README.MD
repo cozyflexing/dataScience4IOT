@@ -10,15 +10,6 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ![Sense-Hat Weather Monitor Separate](https://github.com/cozyflexing/dataScience4IOT/blob/9587aad39beb7e2d4f7242eac818a00f9f5c5997/separateParts.JPG)
 
-![Sense-Hat Weather Monitor Combined 1]
-(https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined1.JPG)
-
-![Sense-Hat Weather Monitor Combined 2]
-(https://github.com/cozyflexing/dataScience4IOT/blob/eefea628960e567fd6a68a8911c4db04ffe8bf49/combined2.JPG)
-
-![Sense-Hat Weather Monitor Combined 3]
-(https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined3.JPG)
-
 ![Sense-Hat Weather Monitor Combined 4](https://github.com/cozyflexing/dataScience4IOT/blob/7ff92f0e6689487a3c03aa7619acabae37a6884b/combined4.JPG)
 
 ## IoT Pipeline
