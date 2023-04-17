@@ -88,10 +88,6 @@ git clone https://github.com/username/sensehat-weather-monitor.git
 5. Run the sensor_handler.py script to start collecting data.
 6. Run the app.py script to start the Dash web application.
 
-### Credits
-
-This project was inspired by various weather monitoring projects using the SenseHAT add-on board.
-
 ### Resources
 
 - [SenseHAT Documentation](https://pythonhosted.org/sense-hat/api/)
