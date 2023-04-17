@@ -45,14 +45,19 @@ app.layout = dbc.Container([
         dbc.Col([
             dcc.Graph(id="temperature-4h-graph")
         ]),
+    ]),
+    dbc.Row([
         dbc.Col([
             dcc.Graph(id="pressure-4h-graph")
         ]),
+    ]),
+    dbc.Row([
         dbc.Col([
             dcc.Graph(id="humidity-4h-graph")
         ])
     ]),
-    dcc.Interval(id="interval", interval=1*30000, n_intervals=0)
+    dcc.Interval(id="interval", interval=1*30000, n_intervals=0),
+    html.Div(id="alert-container")
 ])
 
 @app.callback(
@@ -65,8 +70,10 @@ app.layout = dbc.Container([
     Output("temperature-4h-graph", "figure"),
     Output("pressure-4h-graph", "figure"),
     Output("humidity-4h-graph", "figure"),
+    Output("alert-container", "children"),  # Add this line
     Input("interval", "n_intervals")
 )
+
 
 def update_values(n):
     latest_data = weather_collection.find_one(sort=[("timestamp", -1)])
@@ -98,12 +105,12 @@ def update_values(n):
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Temperature"},
         gauge={
-            'axis': {'range': [None, 100]},
+            'axis': {'range': [None, 40]},
             'bar': {'color': 'rgba(0, 0, 0, 0.5)'},
             'steps': [
-                {'range': [0, 60], 'color': 'lightgreen'},
-                {'range': [60, 80], 'color': 'yellow'},
-                {'range': [80, 100], 'color': 'red'}
+                {'range': [0, 10], 'color': 'lightblue'},
+                {'range': [10, 30], 'color': 'lightgreen'},
+                {'range': [30, 40], 'color': 'red'}
             ],
         }
     ))
@@ -133,9 +140,9 @@ def update_values(n):
             'axis': {'range': [None, 100]},
             'bar': {'color': 'rgba(0, 0, 0, 0.5)'},
             'steps': [
-                {'range': [0, 40], 'color': 'red'},
-                {'range': [40, 60], 'color': 'yellow'},
-                {'range': [60, 100], 'color': 'lightgreen'}
+                {'range': [0, 55], 'color': 'lightgreen'},
+                {'range': [55, 65], 'color': 'yellow'},
+                {'range': [65, 100], 'color': 'red'}
             ],
         }
     ))
@@ -172,10 +179,27 @@ def update_values(n):
         xaxis_title="Time",
         yaxis_title="Humidity"
     )
+    alert_list = []
 
+    if temperature_value and temperature_value >= 30:
+        alert_list.append("High temperature!")
+
+    if pressure_value and pressure_value >= 1100:
+        alert_list.append("High pressure!")
+
+    if humidity_value and humidity_value > 65:
+        alert_list.append("High humidity!")
+
+    # Create alerts if any conditions are met
+    alerts = []
+    for alert_text in alert_list:
+        alerts.append(
+            dbc.Alert(alert_text, color="danger", duration=5000, dismissable=True)
+        )
     return (temperature_value, pressure_value, humidity_value,
             temperature_figure, pressure_figure, humidity_figure,
-            temperature_history_figure, pressure_history_figure, humidity_history_figure)
+            temperature_history_figure, pressure_history_figure, humidity_history_figure,
+            alerts)
 
 
 if __name__ == "__main__":
