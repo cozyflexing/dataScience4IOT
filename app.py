@@ -38,20 +38,23 @@ weather_collection = db["weather"]
 # Create the Dash app with Bootstrap stylesheet
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# Define the layout of the app
-app.layout = dbc.Container(
+# Import additional libraries
+import plotly.subplots as sp
+from dash.exceptions import PreventUpdate
+
+# Replace the dbc.Container with a Div and add custom styles for modern look
+app.layout = html.Div(
     [
         # Header with the title
-        html.H1("Sense-Hat Monitor", style={"text-align": "center"}),
-        html.Br(),
-
+        html.H1("Sense-Hat Monitor", style={"text-align": "center", "margin-bottom": "30px", "color": "#1a1a1a", "font-family": "Arial, sans-serif"}),
+        
         # Row with current temperature, pressure, and humidity
         dbc.Row(
             [
-                dbc.Col([html.H4("Temperature"), html.P(id="temperature")]),
-                dbc.Col([html.H4("Pressure"), html.P(id="pressure")]),
-                dbc.Col([html.H4("Humidity"), html.P(id="humidity")]),
-            ]
+                dbc.Col([html.H4("Temperature", style={"text-align": "center", "color": "#1a1a1a"}), html.P(id="temperature", style={"text-align": "center", "font-size": "24px", "color": "#1a1a1a"})]),
+                dbc.Col([html.H4("Pressure", style={"text-align": "center", "color": "#1a1a1a"}), html.P(id="pressure", style={"text-align": "center", "font-size": "24px", "color": "#1a1a1a"})]),
+                dbc.Col([html.H4("Humidity", style={"text-align": "center", "color": "#1a1a1a"}), html.P(id="humidity", style={"text-align": "center", "font-size": "24px", "color": "#1a1a1a"})]),
+            ], style={"margin-bottom": "30px"}
         ),
 
         # Row with graphs for temperature, pressure, and humidity
@@ -60,29 +63,61 @@ app.layout = dbc.Container(
                 dbc.Col([dcc.Graph(id="temperature-graph")]),
                 dbc.Col([dcc.Graph(id="pressure-graph")]),
                 dbc.Col([dcc.Graph(id="humidity-graph")]),
-            ]
+            ], style={"margin-bottom": "30px"}
         ),
 
-        # Rows with 4-hour historical graphs for each parameter
+        # Row with 4-hour historical graphs for each parameter
         dbc.Row(
             [
                 dbc.Col([dcc.Graph(id="temperature-4h-graph")]),
-            ]
+            ], style={"margin-bottom": "30px"}
         ),
         dbc.Row(
             [
                 dbc.Col([dcc.Graph(id="pressure-4h-graph")]),
-            ]
+            ], style={"margin-bottom": "30px"}
         ),
-        dbc.Row([dbc.Col([dcc.Graph(id="humidity-4h-graph")])]),
+        dbc.Row(
+            [
+                dbc.Col([dcc.Graph(id="humidity-4h-graph")]),
+            ], style={"margin-bottom": "30px"}
+        ),
 
         # Interval component for updating the data periodically
         dcc.Interval(id="interval", interval=1 * 30000, n_intervals=0),
 
         # Div for displaying alerts
         html.Div(id="alert-container"),
-    ]
+    ], style={"width": "80%", "margin": "0 auto", "background-color": "#f0f0f0", "padding": "30px", "border-radius": "10px"}
 )
+
+def create_gauge_chart(title, value, min_value, max_value, red_threshold, yellow_threshold):
+    return go.Figure(
+        go.Indicator(
+            mode="gauge+number",
+            value=value,
+            domain={"x": [0, 1], "y": [0, 1]},
+            title={"text": title},
+            gauge={
+                "axis": {"range": [min_value, max_value],
+                         "tickcolor": "white",
+                         "tickfont": {"size": 12, "color": "white"},
+                         "tickwidth": 2,
+                         "gridcolor": "white",
+                         "gridwidth": 1
+                         },
+                "bgcolor": "rgba(54, 57, 63, 1)",
+                "borderwidth": 1,
+                "bordercolor": "rgba(54, 57, 63, 1)",
+                "bar": {"color": "rgba(0, 0, 0, 0.5)"},
+                "steps": [
+                    {"range": [min_value, yellow_threshold], "color": "lightgreen"},
+                    {"range": [yellow_threshold, red_threshold], "color": "yellow"},
+                    {"range": [red_threshold, max_value], "color": "red"},
+                ],
+            },
+        )
+    )
 
 # Callback function to update the values and graphs
 @app.callback(
@@ -126,59 +161,9 @@ def update_values(n):
         humidities.append(data["humidity"])
 
     # Create gauge figures for temperature, pressure, and humidity
-    temperature_figure = go.Figure(
-        go.Indicator(
-            mode="gauge+number",
-            value=temperature_value,
-            domain={"x": [0, 1], "y": [0, 1]},
-            title={"text": "Temperature"},
-            gauge={
-                "axis": {"range": [None, 40]},
-                "bar": {"color": "rgba(0, 0, 0, 0.5)"},
-                "steps": [
-                    {"range": [0, 10], "color": "lightblue"},
-                    {"range": [10, 30], "color": "lightgreen"},
-                    {"range": [30, 40], "color": "red"},
-                ],
-            },
-        )
-    )
-
-    pressure_figure = go.Figure(
-        go.Indicator(
-            mode="gauge+number",
-            value=pressure_value,
-            domain={"x": [0, 1], "y": [0, 1]},
-            title={"text": "Pressure"},
-            gauge={
-                "axis": {"range": [None, 1200]},
-                "bar": {"color": "rgba(0, 0, 0, 0.5)"},
-                "steps": [
-                    {"range": [0, 1000], "color": "lightgreen"},
-                    {"range": [1000, 1100], "color": "yellow"},
-                    {"range": [1100, 1200], "color": "red"},
-                ],
-            },
-        )
-    )
-
-    humidity_figure = go.Figure(
-        go.Indicator(
-            mode="gauge+number",
-            value=humidity_value,
-            domain={"x": [0, 1], "y": [0, 1]},
-            title={"text": "Humidity"},
-            gauge={
-                "axis": {"range": [None, 100]},
-                "bar": {"color": "rgba(0, 0, 0, 0.5)"},
-                "steps": [
-                    {"range": [0, 55], "color": "lightgreen"},
-                    {"range": [55, 65], "color": "yellow"},
-                    {"range": [65, 100], "color": "red"},
-                ],
-            },
-        )
-    )
+    temperature_figure = create_gauge_chart("Temperature", temperature_value, 0, 40, 30, 10)
+    pressure_figure = create_gauge_chart("Pressure", pressure_value, 0, 1200, 1100, 1000)
+    humidity_figure = create_gauge_chart("Humidity", humidity_value, 0, 100, 65, 55)
 
     # Separate figures for each parameter's historical data
     temperature_history_figure = go.Figure()
@@ -186,7 +171,8 @@ def update_values(n):
     humidity_history_figure = go.Figure()
 
     temperature_history_figure.add_trace(
-        go.Scatter(x=timestamps, y=temperatures, mode="lines", name="Temperature)
+        go.Scatter(x=timestamps, y=temperatures, mode="lines", name="Temperature")
+    )
     pressure_history_figure.add_trace(
         go.Scatter(x=timestamps, y=pressures, mode="lines", name="Pressure")
     )
