@@ -10,6 +10,10 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ![SenseHAT Weather Monitor Architecture](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-architecture.png)
 
+### IoT Pipeline
+
+![Data Pipeline]()
+
 ### Sensor Data Collection
 
 The `sensor_handler.py` script periodically collects data from the SenseHAT board and stores it in a MongoDB database. The data collected includes temperature, pressure, and humidity.
