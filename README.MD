@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This project demonstrates a weather monitor using the SenseHAT add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
+This project demonstrates a weather monitor using the Sense-Hat add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
 
-![SenseHAT Weather Monitor Dashboard](https://github.com/cozyflexing/dataScience4IOT/blob/33a5886199d38828c2789780666378c04d29d8b9/Dashboard%20Part%201.png)
+![Sense-Hat Weather Monitor Dashboard](https://github.com/cozyflexing/dataScience4IOT/blob/33a5886199d38828c2789780666378c04d29d8b9/Dashboard%20Part%201.png)
 
 ## Parts
 
