@@ -8,7 +8,8 @@ This project demonstrates a weather monitor using the SenseHAT add-on board for 
 
 ## Parts
 
-![Sense-Hat Weather Monitor Parts](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-architecture.png)
+![Sense-Hat Weather Monitor Parts](https://github.com/cozyflexing/dataScience4IOT/blob/9587aad39beb7e2d4f7242eac818a00f9f5c5997/separateParts.JPG)
+(https://github.com/cozyflexing/dataScience4IOT/blob/9587aad39beb7e2d4f7242eac818a00f9f5c5997/separateParts.JPG)
 
 ## IoT Pipeline
 
