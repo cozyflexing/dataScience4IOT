@@ -94,6 +94,6 @@ This project was inspired by various weather monitoring projects using the Sense
 
 ### Resources
 
-- [SenseHAT Documentation](https://dash.plotly.com/)
-- Dash Documentation
-- MongoDB Python Driver
+- [SenseHAT Documentation](https://pythonhosted.org/sense-hat/api/)
+- [Dash Documentation](https://dash.plotly.com/)
+- [MongoDB Python Driver](https://pymongo.readthedocs.io/en/stable/)
