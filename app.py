@@ -59,6 +59,8 @@ app.layout = dbc.Container([
     Output("combined-graph", "figure"),
     Input("interval", "n_intervals")
 )
+import datetime
+
 def update_values(n):
     latest_data = weather_collection.find_one(sort=[("timestamp", -1)])
     
@@ -68,6 +70,20 @@ def update_values(n):
         humidity_value = latest_data['humidity']
     else:
         temperature_value, pressure_value, humidity_value = None, None, None
+
+    # Fetch the last 24 hours data
+    now = datetime.datetime.now()
+    start_time = now - datetime.timedelta(hours=24)
+    query = {"timestamp": {"$gte": start_time}}
+    historical_data = weather_collection.find(query).sort("timestamp", 1)
+
+    timestamps, temperatures, pressures, humidities = [], [], [], []
+
+    for data in historical_data:
+        timestamps.append(data['timestamp'])
+        temperatures.append(data['temperature'])
+        pressures.append(data['pressure'])
+        humidities.append(data['humidity'])
 
     temperature_figure = go.Figure(go.Indicator(
         mode="gauge+number",
@@ -89,6 +105,7 @@ def update_values(n):
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Humidity"},
     ))
+
     combined_figure = go.Figure()
 
     combined_figure.add_trace(go.Scatter(
@@ -107,7 +124,8 @@ def update_values(n):
         yaxis_title="Values",
         legend_title="Parameters"
     )
-    return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure, combined_figure
+
+    return temperature_value, pressure_value, humidity_value, temperature_figure, pressure_figure, humidity_figure, combined_figure
 
 if __name__ == "__main__":
     app.run_server(debug=True)
