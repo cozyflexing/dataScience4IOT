@@ -7,14 +7,12 @@ from dash.dependencies import Input, Output
 from pymongo import MongoClient
 from datetime import datetime
 import plotly.graph_objs as go
+from db import client
 
-# Replace 'your_mongodb_uri' with your actual MongoDB URI
-client = MongoClient('your_mongodb_uri')
 db = client['weather_data']
 weather_collection = db['weather']
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
 app.layout = dbc.Container([
     html.H1("SenseHat Weather Monitor", style={"text-align": "center"}),
     html.Br(),
@@ -43,7 +41,12 @@ app.layout = dbc.Container([
             dcc.Graph(id="humidity-graph")
         ])
     ]),
-    dcc.Interval(id="interval", interval=1*1000, n_intervals=0)
+    dbc.Row([
+        dbc.Col([
+            dcc.Graph(id="combined-graph")
+        ])
+    ]),
+    dcc.Interval(id="interval", interval=1*30000, n_intervals=0)
 ])
 
 @app.callback(
@@ -53,6 +56,7 @@ app.layout = dbc.Container([
     Output("temperature-graph", "figure"),
     Output("pressure-graph", "figure"),
     Output("humidity-graph", "figure"),
+    Output("combined-graph", "figure"),
     Input("interval", "n_intervals")
 )
 def update_values(n):
@@ -85,8 +89,25 @@ def update_values(n):
         domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Humidity"},
     ))
+    combined_figure = go.Figure()
 
-    return temperature_value, pressure_value, humidity_value, temperature_figure, pressure_figure, humidity_figure
+    combined_figure.add_trace(go.Scatter(
+        x=timestamps, y=temperatures, mode="lines", name="Temperature"
+    ))
+    combined_figure.add_trace(go.Scatter(
+        x=timestamps, y=pressures, mode="lines", name="Pressure"
+    ))
+    combined_figure.add_trace(go.Scatter(
+        x=timestamps, y=humidities, mode="lines", name="Humidity"
+    ))
+
+    combined_figure.update_layout(
+        title="24 Hours Weather Data",
+        xaxis_title="Time",
+        yaxis_title="Values",
+        legend_title="Parameters"
+    )
+    return temperature, pressure, humidity, temperature_figure, pressure_figure, humidity_figure, combined_figure
 
 if __name__ == "__main__":
     app.run_server(debug=True)
