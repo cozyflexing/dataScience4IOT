@@ -92,7 +92,7 @@ app.layout = html.Div(
 )
 
 def create_gauge_chart(title, value, min_value, max_value, threshold1, threshold2):
-    return go.Indicator(
+    indicator = go.Indicator(
         mode="gauge+number",
         value=value,
         domain={"x": [0, 1], "y": [0, 1]},
@@ -116,6 +116,8 @@ def create_gauge_chart(title, value, min_value, max_value, threshold1, threshold
             "bordercolor": "rgba(0,0,0,0)",
         },
     )
+
+    return go.Figure(data=[indicator])
 
 
 
