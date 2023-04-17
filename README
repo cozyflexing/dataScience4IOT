@@ -1,33 +1,36 @@
-#sensehat-weather-monitor
-Introduction
+# sensehat-weather-monitor
+
+## Introduction
 This project demonstrates a weather monitor using the SenseHAT add-on board for Raspberry Pi. It measures temperature, pressure, and humidity, and displays the data in real-time using a Dash web application. The sensor data is also stored in a MongoDB database for historical analysis.
 
-SenseHAT Weather Monitor
+![SenseHAT Weather Monitor](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-screenshot.png)
 
-Architecture
-SenseHAT Weather Monitor Architecture
+## Architecture
+![SenseHAT Weather Monitor Architecture](https://raw.githubusercontent.com/username/sensehat-weather-monitor/main/sensehat-weather-monitor-architecture.png)
 
-Sensor Data Collection
-The sensor_handler.py script periodically collects data from the SenseHAT board and stores it in a MongoDB database. The data collected includes temperature, pressure, and humidity.
+### Sensor Data Collection
+The `sensor_handler.py` script periodically collects data from the SenseHAT board and stores it in a MongoDB database. The data collected includes temperature, pressure, and humidity.
 
-Database
-A MongoDB database is used to store the sensor data. The sensor data is stored in a collection named weather.
+### Database
+A MongoDB database is used to store the sensor data. The sensor data is stored in a collection named `weather`.
 
-Web Application
+### Web Application
 The web application is built using the Dash framework, which is a Python library for creating analytical web applications. The application consists of the following components:
 
-Temperature, pressure, and humidity gauges
-4-hour historical line charts for each parameter
+- Temperature, pressure, and humidity gauges
+- 4-hour historical line charts for each parameter
+
 The web application updates the displayed data every 30 seconds.
 
-Dash Application Layout
+### Dash Application Layout
 The Dash application layout consists of a Bootstrap container with three main sections:
 
-Header with the title "SenseHat Weather Monitor"
-Row with three columns for displaying the current temperature, pressure, and humidity
-Two rows, each containing three columns with graphs for displaying the historical data
-Updating the Data
-The update_values function is triggered by the interval component every 30 seconds. This function fetches the latest data from the MongoDB database and updates the gauges and historical line charts in the web application.
+1. Header with the title "SenseHat Weather Monitor"
+2. Row with three columns for displaying the current temperature, pressure, and humidity
+3. Two rows, each containing three columns with graphs for displaying the historical data
 
-Running the Application
-To run the application, execute the app.py script.
+### Updating the Data
+The `update_values` function is triggered by the interval component every 30 seconds. This function fetches the latest data from the MongoDB database and updates the gauges and historical line charts in the web application.
+
+### Running the Application
+To run the application, execute the `app.py` script.
