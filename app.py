@@ -91,33 +91,35 @@ app.layout = html.Div(
     ], style={"width": "80%", "margin": "0 auto", "background-color": "#f0f0f0", "padding": "30px", "border-radius": "10px"}
 )
 
-def create_gauge_chart(title, value, min_value, max_value, red_threshold, yellow_threshold):
-    return go.Figure(
-        go.Indicator(
-            mode="gauge+number",
-            value=value,
-            domain={"x": [0, 1], "y": [0, 1]},
-            title={"text": title},
-            gauge={
-                "axis": {"range": [min_value, max_value],
-                         "tickcolor": "white",
-                         "tickfont": {"size": 12, "color": "white"},
-                         "tickwidth": 2,
-                         "gridcolor": "white",
-                         "gridwidth": 1
-                         },
-                "bgcolor": "rgba(54, 57, 63, 1)",
-                "borderwidth": 1,
-                "bordercolor": "rgba(54, 57, 63, 1)",
-                "bar": {"color": "rgba(0, 0, 0, 0.5)"},
-                "steps": [
-                    {"range": [min_value, yellow_threshold], "color": "lightgreen"},
-                    {"range": [yellow_threshold, red_threshold], "color": "yellow"},
-                    {"range": [red_threshold, max_value], "color": "red"},
-                ],
+def create_gauge_chart(title, value, min_value, max_value, threshold1, threshold2):
+    return go.Indicator(
+        mode="gauge+number",
+        value=value,
+        domain={"x": [0, 1], "y": [0, 1]},
+        title={"text": title},
+        gauge={
+            "axis": {
+                "range": [min_value, max_value],
+                "tickcolor": "lightgrey",
+                "linecolor": "lightgrey",
+                "linewidth": 2,
             },
-        )
+            "bar": {"color": "darkblue"},
+            "steps": [
+                {"range": [min_value, threshold1], "color": "lightgreen"},
+                {"range": [threshold1, threshold2], "color": "yellow"},
+                {"range": [threshold2, max_value], "color": "red"},
+            ],
+            "threshold": {
+                "line": {"color": "blue", "width": 4},
+                "thickness": 0.75,
+                "value": value,
+            },
+            "bgcolor": "rgba(0,0,0,0)",
+            "bordercolor": "rgba(0,0,0,0)",
+        },
     )
+
 
 # Callback function to update the values and graphs
 @app.callback(
